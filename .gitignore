@@ -1,0 +1,36 @@
+# Python
+*.pyc
+__pycache__/
+.Python/
+venv/
+env/
+.env
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.pytest_cache/
+htmlcov/
+.ipynb_checkpoints
+
+# Django
+*.log
+*.sqlite3
+media/
+static/ # 如果你将收集的静态文件放在这里，则忽略
+staticfiles/ # 另一个常见的静态文件收集目录
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*~
+.DS_Store
+
+# OS generated files
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Docker
+.dockerignore
