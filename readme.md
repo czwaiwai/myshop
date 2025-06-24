@@ -65,3 +65,11 @@ python manage.py makemigrations
 # 让数据库的改动生效
 python manage.py migrate
 ```
+
+### 商城的路由结构
+
+/｜/home 首页
+/search 搜索
+/cart 购物车
+/product/detail/:id 商品详情
+/product/categoryId/ 商品大分类
