@@ -9,6 +9,11 @@ mkdir demoproject
 ```bash
 python3.12 -m venv env
 ```
+### 激活虚拟环境
+
+```bash
+source venv/bin/activate
+```
 
 ### 安装 django
 
@@ -65,6 +70,18 @@ python manage.py makemigrations
 # 让数据库的改动生效
 python manage.py migrate
 ```
+
+
+### 管理项目依赖
+安装完所需依赖后执行，将项目依赖导入到requirements.txt
+```bash
+pip freeze > requirements.txt
+```
+导入所需依赖，引入项目后执行
+```bash
+pip install -r requirements.txt
+```
+
 
 ### 商城的路由结构
 
