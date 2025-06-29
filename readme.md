@@ -9,6 +9,7 @@ mkdir demoproject
 ```bash
 python3.12 -m venv env
 ```
+
 ### 激活虚拟环境
 
 ```bash
@@ -71,17 +72,19 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-
 ### 管理项目依赖
-安装完所需依赖后执行，将项目依赖导入到requirements.txt
+
+安装完所需依赖后执行，将项目依赖导入到 requirements.txt
+
 ```bash
 pip freeze > requirements.txt
 ```
+
 导入所需依赖，引入项目后执行
+
 ```bash
 pip install -r requirements.txt
 ```
-
 
 ### 商城的路由结构
 
@@ -90,3 +93,11 @@ pip install -r requirements.txt
 /cart 购物车
 /product/detail/:id 商品详情
 /product/categoryId/ 商品大分类
+
+### 配合 Django 的前端框架
+
+Alpine.js htmx tailwind css
+
+### 数据库使用偏好
+
+PostgreSQL， redis

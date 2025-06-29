@@ -1,39 +1,65 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
+from .managers import MsUserManager
 
 
-# Create your models here.
+class UserType(models.TextChoices):
+    CLIENT = "client", "普通用户"
+    MANAGER = "manager", "后台用户"
+
+
 class User(AbstractUser):
-    mobile = models.CharField(max_length=11, unique=True, verbose_name="手机号")
-    avator = models.ImageField(upload_to="avatar", verbose_name="头像")
-    score = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="积分")
+    username = models.CharField(
+        max_length=30, default="", blank=True, verbose_name="用户名"
+    )
+
+    mobile = models.CharField(
+        max_length=11, unique=True, null=True, blank=True, verbose_name="手机号"
+    )
+    email = models.EmailField(unique=True, verbose_name="邮箱")
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = []
+    nickname = models.CharField(
+        max_length=20, null=True, blank=True, verbose_name="昵称"
+    )
+    avator = models.ImageField(
+        upload_to="avatar", null=True, blank=True, verbose_name="头像"
+    )
+    user_type = models.CharField(
+        max_length=10, choices=UserType, default="client", verbose_name="用户类型"
+    )
+    score = models.DecimalField(
+        max_digits=10, default=0, decimal_places=2, verbose_name="积分"
+    )
     create_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
     update_at = models.DateTimeField(auto_now=True, verbose_name="更新时间")
-    # 解决 groups 字段的反向访问器冲突
-    groups = models.ManyToManyField(
-        Group,
-        verbose_name=("groups"),
-        blank=True,
-        help_text=(
-            "The groups this user belongs to. A user will get all permissions "
-            "granted to each of their groups."
-        ),
-        related_name="user_set_ms_groups",  # 修改为唯一的名称
-        related_query_name="user_ms",
-    )
-    # 解决 user_permissions 字段的反向访问器冲突
-    user_permissions = models.ManyToManyField(
-        Permission,
-        verbose_name=("user permissions"),
-        blank=True,
-        help_text=("Specific permissions for this user."),
-        related_name="user_set_ms_permissions",  # 修改为唯一的名称
-        related_query_name="user_ms",
-    )
+    objects = MsUserManager()
+
+    @property
+    def is_client(self):
+        return self.user_type == UserType.CLIENT
+
+    @property
+    def is_manager(self):
+        return self.user_type == UserType.MANAGER and self.is_staff
 
     class Meta:
         db_table = "ms_users"
         verbose_name = "用户"
+        verbose_name_plural = verbose_name
+
+
+class ClientUser(User):
+    class Meta:
+        proxy = True
+        verbose_name = "普通用户"
+        verbose_name_plural = verbose_name
+
+
+class ManagerUser(User):
+    class Meta:
+        proxy = True
+        verbose_name = "后台用户"
         verbose_name_plural = verbose_name
 
 

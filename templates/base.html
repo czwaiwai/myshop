@@ -1,20 +1,36 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>{% block title %}My Site{% endblock %}</title>
+    <title>
+      {% block title %}My Site{% endblock %}
+    </title>
   </head>
   <body>
     <div id="sidebar">
       {% block sidebar %}
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/blog/">Blog</a></li>
-      </ul>
+        <ul>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/blog/">Blog</a>
+          </li>
+          <li>
+            <a href="{% url "home:login" %}">登录</a>
+          </li>
+          <li>
+            <a href="{% url "home:logout" %}">退出</a>
+          </li>
+        </ul>
       {% endblock %}
     </div>
-    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="content">
+      {% block content %}{% endblock %}
+    </div>
     <div id="footer">
-      <p>{% block footer %}&copy; My Site 2023{% endblock %}</p>
+      <p>
+        {% block footer %}&copy; My Site 2023{% endblock %}
+      </p>
     </div>
   </body>
 </html>
