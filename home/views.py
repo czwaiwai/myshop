@@ -2,10 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods
-from .forms import LoginForm
+from .forms import LoginForm, RegisterForm
 
-
-# Create your views here.
 @require_http_methods(["GET", "POST"])
 def home(request):
     if request.user.is_authenticated:
@@ -21,7 +19,6 @@ def login(request):
         form = LoginForm(request.POST)
 
         if not form.is_valid():
-            form.add_error()
             return render(request, "home/login.html", {"form": form})
         username = form.cleaned_data.get("username")
         password = form.cleaned_data.get("password")
@@ -44,4 +41,11 @@ def logout(request):
 
 @require_http_methods(["GET", "POST"])
 def register(request):
-    pass
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if not form.is_valid():
+            return render(request, "home/register.html", {"form": form })
+
+    else:
+        form = RegisterForm()
+    return render(request, "home/register.html", {"form": form})
