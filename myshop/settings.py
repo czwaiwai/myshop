@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "widget_tweaks",
+    "widget_tweaks",  # 表单插件
+    "ninja",  # api框架
     "home",
     "products",
     "users",

@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.views.decorators.http import require_http_methods
 from .forms import LoginForm, RegisterForm
 
+
 @require_http_methods(["GET", "POST"])
 def home(request):
     if request.user.is_authenticated:
@@ -41,11 +42,15 @@ def logout(request):
 
 @require_http_methods(["GET", "POST"])
 def register(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = RegisterForm(request.POST)
         if not form.is_valid():
-            return render(request, "home/register.html", {"form": form })
-
+            return render(request, "home/register.html", {"form": form})
+        user = form.save()
+        user.score = 100
+        user.save()
+        print(reverse("home:login"))
+        return redirect(reverse("home:login"))
     else:
         form = RegisterForm()
     return render(request, "home/register.html", {"form": form})

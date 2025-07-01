@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
     {% if user.is_authenticated %}
-        <div>{{ user.email }}</div>
-        <div>{{ user.username }}</div>
-        <div>{{ user.mobile }}</div>
+        <div>邮箱：{{ user.email }}</div>
+        <div>用户名：{{ user.username }}</div>
+        <div>手机号：{{ user.mobile }}</div>
+        <div>邮箱{{ user.score }}</div>
     {% endif %}
-    <h1>Welcome to the Home Page</h1>
-    <p>This is the home page of your Django project.</p>
-    <p>You can add more content here as needed.</p>
+    <h1>这里时首页</h1>
 {% endblock %}
