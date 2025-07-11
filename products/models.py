@@ -1,12 +1,16 @@
 from django.db import models
-
+from mptt.models import MPTTModel, TreeForeignKey
 # 分类
-class Category(models.Model):
+class Category(MPTTModel):
     name = models.CharField(max_length=10, verbose_name='类别名称')
-    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='children', verbose_name='父类别')
-    level = models.IntegerField(default=0, verbose_name='级别')
+    desc = models.CharField(max_length=30, default=None, null=True, blank=True, verbose_name="类别详情")
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children', db_index=True)
     create_at = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
     update_at = models.DateTimeField(auto_now=True, verbose_name='更新时间')
+
+    class MPTTMeta:
+        order_insertion_by = ['name']
+
     class Meta:
         db_table = 'ms_category'
         verbose_name = '商品类别'
@@ -14,11 +18,11 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-    
+
 # 品牌
 class Brand(models.Model):
     name = models.CharField(max_length=20, verbose_name='品牌名称')
-    logo = models.ImageField(upload_to='brand', verbose_name='品牌logo')
+    logo = models.ImageField(upload_to='brand', default=None, blank=True, null=True, verbose_name='品牌logo')
     first_letter = models.CharField(max_length=1, verbose_name='品牌首字母')
     create_at = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
     update_at = models.DateTimeField(auto_now=True, verbose_name='更新时间')
@@ -29,7 +33,7 @@ class Brand(models.Model):
 
     def __str__(self):
         return self.name
-    
+
 class Product(models.Model):
     name = models.CharField(max_length=50, verbose_name='商品名称')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products', verbose_name='商品类别')
@@ -48,7 +52,7 @@ class Product(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.name    
+        return self.name
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images', verbose_name='商品')
@@ -65,7 +69,7 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return self.product.name
-    
+
 class ProductDetail(models.Model):
     product = models.OneToOneField(Product, on_delete=models.CASCADE, related_name='detail', verbose_name='商品')
     content = models.TextField(verbose_name='商品详情')
@@ -79,7 +83,7 @@ class ProductDetail(models.Model):
 
     def __str__(self):
         return self.product.name
-    
+
 class ProductAttribute(models.Model):
     name = models.CharField(max_length=20, verbose_name='属性名称')
     create_at = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')

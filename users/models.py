@@ -62,6 +62,12 @@ class ManagerUser(User):
         verbose_name = "后台用户"
         verbose_name_plural = verbose_name
 
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.user_type = UserType.MANAGER
+            self.is_staff = True
+        super().save(*args, **kwargs)
+
 
 class Address(models.Model):
     user = models.ForeignKey(

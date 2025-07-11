@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "payments",
     "reviews",
     "promotions",
+    "mptt",
 ]
 
 MIDDLEWARE = [
