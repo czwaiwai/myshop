@@ -7,13 +7,40 @@ mkdir demoproject
 ### 创建虚拟环境
 
 ```bash
-python3.12 -m venv env
+# 一般创建.venv作为虚拟环境
+python3.12 -m venv .venv
 ```
 
 ### 激活虚拟环境
 
 ```bash
 source venv/bin/activate
+```
+
+### 使用 uv 创建虚拟环境
+
+```bash
+# 创建指定python版本的虚拟环境
+uv venv --python 3.12
+# 初始化项目
+uv init
+# 添加包
+uv add django==5.2.3 --index https://mirrors.aliyun.com/pypi/simple/
+```
+
+### 项目中配置国内源
+
+```bash
+# 在pyproject.toml中添加以下内容， 清华源为主力，阿里云为备胎
+[[tool.uv.index]]
+# name其实可以不写
+name = "tsinghua"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+default = true
+
+[[tool.uv.index]]
+name = "aliyun"
+url = "https://mirrors.aliyun.com/pypi/simple/"
 ```
 
 ### 安装 django
