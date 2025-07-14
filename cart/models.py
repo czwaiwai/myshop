@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 class Cart(models.Model):
     MsUser = models.OneToOneField(
-        "users.MsUser",
+        "users.User",
         on_delete=models.CASCADE,
         related_name="cart",
         verbose_name="用户",
