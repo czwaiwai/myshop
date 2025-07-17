@@ -141,36 +141,6 @@ class ProductAttribute(models.Model):
     def __str__(self):
         return self.name
 
-
-class ProductSKUAttribute(models.Model):
-    sku = models.ForeignKey(
-        "ProductSKU",
-        on_delete=models.CASCADE,
-        related_name="sku_attributes",
-        verbose_name="SKU",
-    )
-    attribute = models.ForeignKey(
-        "ProductAttribute",
-        on_delete=models.CASCADE,
-        related_name="sku_attributes",
-        verbose_name="属性",
-    )
-    value = models.ForeignKey(
-        "ProductAttributeValue",
-        on_delete=models.CASCADE,
-        related_name="sku_attributes",
-        verbose_name="属性值",
-    )
-
-    class Meta:
-        unique_together = ("sku", "attribute")
-        verbose_name = "SKU属性"
-        verbose_name_plural = verbose_name
-
-    def __str__(self):
-        return f"{self.sku}-{self.attribute}-{self.value}"
-
-
 class ProductAttributeValue(models.Model):
     attribute = models.ForeignKey(
         "ProductAttribute",
@@ -201,8 +171,7 @@ class ProductSKU(models.Model):
     stock = models.PositiveIntegerField(default=0, verbose_name="SKU库存")
     attributes = models.ManyToManyField(
         "ProductAttributeValue",
-        related_name="skus",
-        through="ProductSKUAttribute",
+        related_name="attribute_skus",
         verbose_name="SKU属性",
     )
     is_active = models.BooleanField(default=True, verbose_name="SKU状态")

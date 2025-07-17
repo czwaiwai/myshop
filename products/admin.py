@@ -75,17 +75,22 @@ class ProductSKUAdmin(admin.ModelAdmin):
     list_filter = ("product",)
 
 
+
+class ProductAttributeValueInline(admin.TabularInline):
+    model = ProductAttributeValue
+    extra = 0
+
 @admin.register(ProductAttribute)
 class ProductAttributeAdmin(admin.ModelAdmin):
-    list_display = ("name", "create_at", "update_at")
+    list_display = ("name", "attribute_value", "create_at", "update_at")
     search_fields = ("name",)
 
-
-@admin.register(ProductAttributeValue)
-class ProductAttributeValueAdmin(admin.ModelAdmin):
-    list_display = ("value", "attribute", "create_at", "update_at")
-    list_filter = ("attribute",)
-    search_fields = ("value",)
+    def attribute_value(self, obj):
+        values = obj.values.all()
+        if values:
+           return ",".join([item.value for item in values])
+        return " -- "
+    inlines = [ProductAttributeValueInline]
 
 
 admin.site.register(Product, ProductAdmin)
