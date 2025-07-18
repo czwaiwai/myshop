@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "home",
     "products",
     "users",
+    "cart",
     "orders",
     "payments",
     "reviews",
@@ -128,6 +129,9 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  # 项目根目录下的static文件夹
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 

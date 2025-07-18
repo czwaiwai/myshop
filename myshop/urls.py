@@ -22,6 +22,7 @@ from api.api import api
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("home.urls")),
+    path("cart/", include("cart.urls")),
     path("products/", include("products.urls")),
     path("api/", api.urls),
 ]

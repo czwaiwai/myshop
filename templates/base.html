@@ -1,36 +1,31 @@
+{% load static %}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>
-      {% block title %}My Site{% endblock %}
-    </title>
+    {% block meta %}{% endblock meta %}
+      <title>
+        {% block title %}My Site{% endblock %}
+      </title>
+    <link rel="stylesheet" href="{%  static 'css/base.css'  %}" />
+    {% block css %}{% endblock css %}
   </head>
   <body>
-    <div id="sidebar">
-      {% block sidebar %}
-        <ul>
-          <li>
-            <a href="/">Home</a>
-          </li>
-          <li>
-            <a href="/blog/">Blog</a>
-          </li>
-          <li>
-            <a href="{% url "home:login" %}">登录</a>
-          </li>
-          <li>
-            <a href="{% url "home:logout" %}">退出</a>
-          </li>
-        </ul>
-      {% endblock %}
-    </div>
-    <div id="content">
-      {% block content %}{% endblock %}
-    </div>
-    <div id="footer">
-      <p>
-        {% block footer %}&copy; My Site 2023{% endblock %}
-      </p>
-    </div>
+  <header>
+      {% block header %}
+          {% include 'header.html' %}
+      {% endblock header %}
+  </header>
+  <main>
+      {%  block main %}
+          <div class="content">
+            {% block content %}{% endblock %}
+          </div>
+      {% endblock main %}
+  </main>
+  <footer>
+      {% block footer %}
+             {% include 'footer.html' %}
+      {% endblock footer %}
+  </footer>
   </body>
 </html>

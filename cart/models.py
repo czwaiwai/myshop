@@ -9,6 +9,10 @@ class Cart(models.Model):
         related_name="cart",
         verbose_name="用户",
     )
+    class Meta:
+        db_table = "ms_cart"
+        verbose_name = "购物车"
+        verbose_name_plural = verbose_name
 
 
 class CardItem(models.Model):

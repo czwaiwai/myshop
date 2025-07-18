@@ -1,0 +1,20 @@
+
+<nav>
+    <ul>
+        <li>
+            <a href="/">首页</a>
+        </li>
+        <li>
+            <a href="{% url "products:product_list" %}">商品列表</a>
+        </li>
+        <li>
+            <a href="{%  url "cart:index" %}" >购物车</a>
+        </li>
+      <li>
+        <a href="{% url "home:login" %}">登录</a>
+      </li>
+      <li>
+        <a href="{% url "home:logout" %}">退出</a>
+      </li>
+    </ul>
+</nav>
