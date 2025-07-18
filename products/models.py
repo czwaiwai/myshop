@@ -130,6 +130,7 @@ class ProductDetail(models.Model):
 
 class ProductAttribute(models.Model):
     name = models.CharField(max_length=20, verbose_name="属性名称")
+    desc = models.CharField(max_length=50, default=None, blank=True, null=True, verbose_name="属性解释")
     create_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
     update_at = models.DateTimeField(auto_now=True, verbose_name="更新时间")
 
@@ -139,7 +140,7 @@ class ProductAttribute(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.name
+        return f"{self.desc} - {self.name}"
 
 class ProductAttributeValue(models.Model):
     attribute = models.ForeignKey(

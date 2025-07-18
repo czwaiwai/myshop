@@ -113,6 +113,24 @@ pip freeze > requirements.txt
 pip install -r requirements.txt
 ```
 
+### 当数据库同步出现问题时
+```bash
+# 清除迁移历史记录
+python manage.py migrate --fake app_name zero
+
+# 查看当前的migration进度，此时文件前的 [x] 变成了[ ]
+python manage.py showmigrations app_name
+
+#删除app-migrations下除__init__.py的其他文件
+
+#执行makemigrations，程序会再次为这个app 生成 0001_initial.py 文件
+
+python manage.py makemigrations app_name
+
+# 把当前数据库的状态作为初始状态
+python manage.py migrate --fake-initial app_name
+```
+
 ### 商城的路由结构
 
 /｜/home 首页
@@ -120,6 +138,48 @@ pip install -r requirements.txt
 /cart 购物车
 /product/detail/:id 商品详情
 /product/categoryId/ 商品大分类
+
+需要完成的内容
+后台部分
+
+    商品的添加    
+    sku商品添加同时添加相关的属性值，优化管理关联属性的方式
+    地址表关联省市区
+    订单表的管理
+    用户购物车物品列表查看
+    用户头像关联显示
+    头像上传路径优化
+    订单对接对应的支付方式
+
+前端部分完成一个标准的商城c端
+
+    商城首页
+    商城分类查询
+    商城商品总览
+    用户购物车
+    购买流程
+    个人中心
+    个人订单显示
+    发货地址填写
+    支付方式对接
+
+扩展部分 
+
+    国际化支持
+    用户积分逻辑
+    会员等级
+    商品秒杀
+    活动券发放
+
+
+    
+    
+    
+
+
+
+
+
 
 ### 配合 Django 的前端框架
 
