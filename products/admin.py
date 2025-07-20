@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.html import format_html
 from mptt.admin import MPTTModelAdmin
 from .models import (
     Product,
@@ -22,10 +23,14 @@ class CategoryAdmin(MPTTModelAdmin):
 
 
 class BrandAdmin(admin.ModelAdmin):
-    list_display = ("logo", "name", "first_letter")
+    list_display = ("name", "logo_preview", "first_letter")
     list_filter = ("name",)
     search_fields = ("name", "first_letter")
-
+    def logo_preview(self, obj):
+        if obj.logo is None:
+            return "--"
+        return format_html('<img src="/{}" alt="{}" width="80" height="80" />', obj.logo, obj.logo)
+    logo_preview.short_description = "Logo"
 
 class ProcutImageInline(admin.TabularInline):
     model = ProductImage
