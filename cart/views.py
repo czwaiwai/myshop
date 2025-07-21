@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 
@@ -9,3 +10,8 @@ from cart.models import Cart
 def index(request):
     return render(request, "cart/index.html")
     # cart_items = Cart.objects.filter(user=request.user)
+
+def add_cart(request, product_id):
+
+
+    return JsonResponse({"success": True})

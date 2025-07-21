@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+<style>
+.flex {
+    display:flex;
+}
+.flex-flow {
+    flex-flow:column;
+}
+.flex-x-center {
+    justify-content: center;
+}
+.flex-y-center {
+    align-items: center;
+}
+.flex-item {
+    flex:1;
+}
+</style>
+{% endblock css %}
+{% block content %}
+    <div class="flex flex-flow  flex-x-center flex-y-center ">
+        <div>{{ product.name }}</div>
+{#        <div>{{ product.skus }}</div>#}
+        <div>{{ product.price }}</div>
+        <div>
+            {% for product_image in  product.images.all %}
+             <img alt="{{ product_image.image }}" src="/{{   product_image.image }}" />
+            {% endfor %}
+        </div>
+          <div>
+            {% for sku in product.skus.all %}
+             {{ sku.sku_name }} |
+            {% endfor %}
+        </div>
+        <div><button>加入购物车</button> <button>立即购买</button></div>
+    </div>
+
+{% endblock content %}

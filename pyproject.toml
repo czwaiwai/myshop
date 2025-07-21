@@ -1,7 +1,7 @@
 [project]
 name = "myshop"
 version = "0.1.0"
-description = "Add your description here"
+description = "小小商城"
 readme = "README.md"
 requires-python = ">=3.12.10"
 dependencies = [

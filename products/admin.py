@@ -32,7 +32,7 @@ class BrandAdmin(admin.ModelAdmin):
         return format_html('<img src="/{}" alt="{}" width="80" height="80" />', obj.logo, obj.logo)
     logo_preview.short_description = "Logo"
 
-class ProcutImageInline(admin.TabularInline):
+class ProductImageInline(admin.TabularInline):
     model = ProductImage
     extra = 1
 
@@ -71,7 +71,7 @@ class ProductAdmin(admin.ModelAdmin):
             },
         ),
     )
-    inlines = [ProcutImageInline, ProductDetailInline]
+    inlines = [ProductImageInline, ProductDetailInline]
 
 
 class ProductSKUAdmin(admin.ModelAdmin):
@@ -95,6 +95,7 @@ class ProductAttributeAdmin(admin.ModelAdmin):
         if values:
            return ",".join([item.value for item in values])
         return " -- "
+    attribute_value.short_description = "属性值"
     inlines = [ProductAttributeValueInline]
 
 

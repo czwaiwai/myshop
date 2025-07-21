@@ -59,7 +59,7 @@ class Brand(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=50, verbose_name="商品名称")
-    category = models.ForeignKey(
+    category = TreeForeignKey(
         Category,
         on_delete=models.CASCADE,
         related_name="products",
