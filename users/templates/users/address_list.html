@@ -1,0 +1,25 @@
+{% extends 'users/users_base.html' %}
+{% block user_content %}
+    <a href="{% url "users:address_create" %}">添加</a>
+
+    <table border>
+        <thead>
+            <tr>
+                <th>邮箱</th>
+                <th>地址</th>
+                <th>是否默认</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for address in addresses %}
+            <tr>
+                <td> {{ address.pk }} {{ address.email }}</td>
+                <td> {{ address }}</td>
+                <td> {{ address.is_default }}</td>
+                <td><a href="{% url "users:address_update" address.pk %}">修改</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock user_content %}

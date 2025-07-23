@@ -72,6 +72,18 @@ wheels = [
 ]
 
 [[package]]
+name = "django-tailwind"
+version = "4.2.0"
+source = { registry = "https://mirrors.aliyun.com/pypi/simple/" }
+dependencies = [
+    { name = "django" },
+]
+sdist = { url = "https://mirrors.aliyun.com/pypi/packages/1e/75/f244c147c6fe04a565f36721cf04d8b36c8bae8bdd17ec1656603d71ce05/django_tailwind-4.2.0.tar.gz", hash = "sha256:60bae45a9981bdf3ebaaa4a8e588533327c90e5857a64f57c26a39b7f234ac0e" }
+wheels = [
+    { url = "https://mirrors.aliyun.com/pypi/packages/b8/f5/f91497da51098d7a25ee7409a49d24c880e3af3664da0872dbe238a7174b/django_tailwind-4.2.0-py3-none-any.whl", hash = "sha256:ff40ccb263faefac555fbaa340d6014f2b07fee6be2c8d5659f2cd63dbce02e9" },
+]
+
+[[package]]
 name = "django-widget-tweaks"
 version = "1.5.0"
 source = { registry = "https://mirrors.aliyun.com/pypi/simple/" }
@@ -88,6 +100,7 @@ dependencies = [
     { name = "django" },
     { name = "django-mptt" },
     { name = "django-ninja" },
+    { name = "django-tailwind" },
     { name = "django-widget-tweaks" },
     { name = "pillow" },
 ]
@@ -97,6 +110,7 @@ requires-dist = [
     { name = "django", specifier = "==5.2.3" },
     { name = "django-mptt", specifier = ">=0.17.0" },
     { name = "django-ninja", specifier = ">=1.4.3" },
+    { name = "django-tailwind", specifier = ">=4.2.0" },
     { name = "django-widget-tweaks", specifier = ">=1.5.0" },
     { name = "pillow", specifier = ">=11.3.0" },
 ]

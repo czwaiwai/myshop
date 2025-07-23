@@ -1,0 +1,8 @@
+{% extends 'users/users_base.html' %}
+{% block user_content %}
+ <form method="POST" action="{% url 'users:address_update' address.pk %}">
+    {% csrf_token %}
+     {{ form }}
+    <button type="submit">提交</button>
+ </form>
+{% endblock user_content %}

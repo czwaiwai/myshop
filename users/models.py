@@ -88,8 +88,15 @@ class Address(models.Model):
     create_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
     update_at = models.DateTimeField(auto_now=True, verbose_name="更新时间")
 
+    @property
+    def full_address(self):
+        return f"{self.province}{self.city}{self.district}{self.place}"
+
     class Meta:
         db_table = "ms_address"
         verbose_name = "用户地址"
         verbose_name_plural = verbose_name
         ordering = ["-update_at"]
+
+    def __str__(self):
+        return f"{self.province}{self.city}{self.district}{self.place}"

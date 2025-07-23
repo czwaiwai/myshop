@@ -11,7 +11,7 @@
         </li>
         {% if user.is_authenticated %}
             <li>
-               <a href="">{{ user.email }}</a>
+               <a href="{% url "users:index" %}">{{ user.email }}</a>
             </li>
             <li>
                 <a href="{% url "home:logout" %}">退出</a>

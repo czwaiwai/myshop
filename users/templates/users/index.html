@@ -1,0 +1,10 @@
+{% extends 'users/users_base.html' %}
+{% block user_content %}
+     {% if user.is_authenticated %}
+        <div>邮箱：{{ user.email }}</div>
+        <div>用户名：{{ user.username }}</div>
+        <div>手机号：{{ user.mobile }}</div>
+        <div>邮箱{{ user.score }}</div>
+    {% endif %}
+{#    <a href="{% url 'ad' %}" >添加地址</a>#}
+{% endblock user_content %}
