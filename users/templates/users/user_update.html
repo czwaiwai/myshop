@@ -1,0 +1,31 @@
+{% extends 'users/users_base.html' %}
+{% block user_content %}
+ <form method="POST" action="{% url 'users:user_update' user.pk %}">
+ {% csrf_token %}
+{#     <table>#}
+{#         {{ form.as_table }}#}
+{#     </table>#}
+
+    {% for field in form %}
+        <div class="form-group">
+            {{ field.label_tag }}
+            {{ field }}
+
+            <!-- 显示字段帮助文本 -->
+            {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+            {% endif %}
+
+            <!-- 显示字段错误 -->
+            {% if field.errors %}
+                <div class="alert alert-danger mt-1">
+                    {{ field.errors }}
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <div>{{ user.score }}</div>
+    <button type="submit">提交</button>
+ </form>
+{% endblock user_content %}

@@ -1,11 +1,18 @@
 from django.shortcuts import render
 from django.views.generic import CreateView, ListView, UpdateView
 from django.urls import reverse_lazy
-from .models import Address
+from .models import Address, ClientUser
+from .forms import ClientUserUpdateForm
 # Create your views here.
 def index(request):
     return render(request, "users/index.html")
 
+class ClientUserUpdate(UpdateView):
+    model = ClientUser
+    form_class = ClientUserUpdateForm
+    # fields = ['username', 'avator', 'nickname', 'mobile']
+    template_name = "users/user_update.html"
+    success_url = reverse_lazy("users:index")
 class AddressCreateView(CreateView):
     model = Address
     fields = ["title","contact_name", "contact_phone", "province", "city", "district", "place", "email", "is_default"]

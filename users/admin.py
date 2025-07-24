@@ -23,7 +23,7 @@ class AddressAdmin(admin.ModelAdmin):
 class ClientUserAdmin(UserAdmin):
     list_display = ("email", "nickname", "score", "is_active", "action_buttons")
     def action_buttons(self, obj):
-        url  = reverse("admin:address_changelist", args=[obj.pk])
+        url  = reverse("admin:users_address_changelist")
         return format_html('<a href="{}">{}</a>', url, "查看地址")
     action_buttons.short_description = '操作'
 

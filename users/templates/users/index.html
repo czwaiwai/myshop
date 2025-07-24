@@ -5,6 +5,7 @@
         <div>用户名：{{ user.username }}</div>
         <div>手机号：{{ user.mobile }}</div>
         <div>邮箱{{ user.score }}</div>
+        <div><a href="{% url "users:user_update" user.pk %}">更新信息</a></div>
     {% endif %}
 {#    <a href="{% url 'ad' %}" >添加地址</a>#}
 {% endblock user_content %}
