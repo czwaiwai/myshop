@@ -18,13 +18,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
-from admin.site import MsAdminSite
+from myadmin.admin import myadmin
 from django.views.static import serve
 from api.api import api
 
 
 urlpatterns = [
-    path("admin/", MsAdminSite.urls),
+    path("admin/", myadmin.urls),
     path("", include("home.urls")),
     path("cart/", include("cart.urls")),
     path("products/", include("products.urls")),

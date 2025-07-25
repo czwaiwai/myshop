@@ -33,6 +33,7 @@ AUTH_USER_MODEL = "users.User"
 
 INSTALLED_APPS = [
     "django.contrib.admin",
+    "myadmin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -49,7 +50,6 @@ INSTALLED_APPS = [
     "payments",
     "reviews",
     "promotions",
-    "admin",
     "mptt",
 ]
 

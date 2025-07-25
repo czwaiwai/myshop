@@ -1,13 +1,13 @@
 from django.contrib import admin
-from admin.site import MsAdminSite
+
 from django.contrib.auth.admin import UserAdmin
 from django.urls import reverse
 from django.utils.html import format_html
+from myadmin.admin import myadmin
 from .models import User, ClientUser, ManagerUser, Address
 
-
 # Register your models here.
-@admin.register(Address)
+@myadmin.ms_register(Address)
 class AddressAdmin(admin.ModelAdmin):
     list_display = ("title", "contact_name","email", "address_show")
     fieldsets = (
@@ -134,9 +134,9 @@ class ManagerUserAdmin(UserAdmin):
 
 
 try:
-    admin.site.unregister(User)
+    myadmin.unregister(User)
 except admin.sites.NotRegistered:
     pass
 
-admin.site.register(ClientUser, ClientUserAdmin)
-admin.site.register(ManagerUser, ManagerUserAdmin)
+myadmin.register(ClientUser, ClientUserAdmin)
+myadmin.register(ManagerUser, ManagerUserAdmin)
