@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "payments",
     "reviews",
     "promotions",
+    "admin",
     "mptt",
 ]
 
