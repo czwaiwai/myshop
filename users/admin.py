@@ -29,17 +29,18 @@ class AddressAdmin(admin.ModelAdmin):
             },
         ),
     )
+    # 两种方式 更新让用户界面只读的字段
+    def get_readonly_fields(self, request, obj=None):
+        readonly = super().get_readonly_fields(request, obj)
+        if obj:
+            readonly += ("user",)
+
+        return readonly
 
     def address_show(self, obj):
         return f"{obj.province}{obj.city}{obj.district}{obj.place}"
     address_show.short_description = "地址"
 
-    # def get_queryset(self, request):
-    #     qs = super().get_queryset(request)
-    #     user_id = request.GET.get("user_id")
-    #     if user_id:
-    #         qs = qs.filter(user_id=user_id)
-    #     return qs
     def changelist_view(self, request, extra_context=None):
         user_id = request.GET.get('user__id__exact')
         extra_context = extra_context or {}
@@ -54,6 +55,32 @@ class AddressAdmin(admin.ModelAdmin):
                 pass
         return super().changelist_view(request, extra_context)
 
+    #  用于给表单追加参数
+    def get_changeform_initial_data(self, request):
+        initial = super().get_changeform_initial_data(request)
+        user_id = request.GET.get('user__id__exact')
+        if user_id:
+            initial["user"] = user_id
+        else:
+            initial["user"] = "1"
+        return initial
+
+    # def save_model(self, request, obj, form, change):
+    #     user_id = request.GET.get('user__id__exact')
+    #     if user_id:
+    #         user = User.objects.get(id=user_id)
+    #         if not obj.user:
+    #             obj.user = user
+    #     super().save_model(request, obj, form, change)
+    #
+    # # get_form 可以调整表单渲染时的表现
+    # def get_form(self, request, obj=None, **kwargs):
+    #     form = super().get_form(request, obj, **kwargs)
+    #     if obj is None:
+    #         form.base_fields["user"].disabled = True
+    #         form.base_fields['user'].required = False
+    #         # form.base_fields['user'].widget.attrs['disabled'] = True
+    #     return form
 
 class ClientUserAdmin(UserAdmin):
     list_display = ("email", "nickname", "score", "is_active", "action_buttons")
