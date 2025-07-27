@@ -3,7 +3,7 @@ from django.db import models
 
 # Create your models here.
 class Cart(models.Model):
-    MsUser = models.OneToOneField(
+    user = models.OneToOneField(
         "users.User",
         on_delete=models.CASCADE,
         related_name="cart",
@@ -15,7 +15,7 @@ class Cart(models.Model):
         verbose_name_plural = verbose_name
 
 
-class CardItem(models.Model):
+class CartItem(models.Model):
     cart = models.ForeignKey(
         Cart, on_delete=models.CASCADE, related_name="items", verbose_name="购物车"
     )

@@ -8,6 +8,7 @@
       </title>
     <link rel="stylesheet" href="{%  static 'myshop/css/base.css' %}" />
     {% block css %}{% endblock css %}
+    <script defer src="{% static 'myshop/js/alpine.min.js' %}"></script>
   </head>
   <body>
   <header>
@@ -27,5 +28,6 @@
              {% include 'footer.html' %}
       {% endblock footer %}
   </footer>
+   {% block js %}{% endblock js %}
   </body>
 </html>
