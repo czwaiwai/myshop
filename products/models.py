@@ -175,7 +175,7 @@ class ProductSKU(models.Model):
         related_name="attribute_skus",
         verbose_name="SKU属性",
     )
-    is_active = models.BooleanField(default=True, verbose_name="SKU状态")
+    is_active = models.BooleanField(default=True, verbose_name="状态")
     create_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
     update_at = models.DateTimeField(auto_now=True, verbose_name="更新时间")
 

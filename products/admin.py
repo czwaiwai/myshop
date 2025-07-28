@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
+from django.templatetags.static import static
 from mptt.admin import MPTTModelAdmin
 from myadmin.admin import myadmin
 from .models import (
@@ -30,7 +31,7 @@ class BrandAdmin(admin.ModelAdmin):
     def logo_preview(self, obj):
         if obj.logo is None:
             return "--"
-        return format_html('<img src="/{}" alt="{}" width="80" height="80" />', obj.logo, obj.logo)
+        return format_html('<img src="{}" alt="{}" width="80" height="80" />', obj.logo.url, obj.logo)
     logo_preview.short_description = "Logo"
 
 class ProductImageInline(admin.TabularInline):
@@ -51,10 +52,14 @@ class ProductAdmin(admin.ModelAdmin):
         "brand",
         "sales",
         "stock",
-        "price",
-        "origin_price",
+        "price_show",
         "update_at",
     )
+    def price_show(self, obj):
+        return format_html("<span>{}<span>/<del>{}<del>", obj.price, obj.origin_price)
+
+    price_show.short_description = "价格/原价"
+
     list_filter = ("price",)
     search_fields = ("name", "category")
     fieldsets = (
@@ -76,7 +81,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 @myadmin.ms_register(ProductSKU)
 class ProductSKUAdmin(admin.ModelAdmin):
-    list_display = ("sku_code", "product", "price", "stock", "create_at", "update_at")
+    list_display = ("sku_code", "product", "price", "stock", "is_active", "update_at")
     search_fields = ("sku_code", "product__name")
     list_filter = ("product",)
 
@@ -89,7 +94,7 @@ class ProductAttributeValueInline(admin.TabularInline):
 # @admin.register(ProductAttribute)
 @myadmin.ms_register(ProductAttribute)
 class ProductAttributeAdmin(admin.ModelAdmin):
-    list_display = ("name", "attribute_value", "create_at", "update_at")
+    list_display = ("name", "desc", "attribute_value")
     search_fields = ("name",)
 
     def attribute_value(self, obj):
