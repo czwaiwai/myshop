@@ -29,19 +29,45 @@
              <img alt="{{ product_image.image }}" src="{{ product_image.image.url }}" />
             {% endfor %}
         </div>
+        <form  x-data="addCartForm()">
           <div>
             {% for sku in product.skus.all %}
               <div>
                 <label>
-                 <input type="checkbox" /> {{ sku.sku_name }}
+                    <input :checked="formData.sku_id === '{{ sku.pk }}'" @change="checkboxChange('{{ sku.pk }}')" type="checkbox" value="{{ sku.pk }}" /> {{ sku.sku_name }}
                 </label>
               </div>
             {% endfor %}
         </div>
-        <div><button>加入购物车</button> <button>立即购买</button></div>
+        <div>
+            <label>数量 <input x-model="formData.quantity" /></label>
+        </div>
+        <div>
+            <button type="button" @click="addCart">加入购物车</button>
+            <button type="button">立即购买</button></div>
+        </form>
     </div>
 
 {% endblock content %}
 {% block js %}
+    <script>
+    function addCartForm() {
+        return {
+            formData: {
+                sku_id: '',
+                quantity: ''
+            },
+            checkboxChange(sku_id) {
+                this.formData.sku_id = this.formData.sku_id === sku_id? '': sku_id
+                {#console.log(this.formData.sku_id)#}
+            },
+            addCart() {
+                console.log(this.formData)
+                console.log('提交数据')
+            }
+        }
+
+    }
+    </script>
 
 {% endblock js %}
