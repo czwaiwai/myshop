@@ -8,7 +8,10 @@
       </title>
     <link rel="stylesheet" href="{%  static 'myshop/css/base.css' %}" />
     {% block css %}{% endblock css %}
-    <script defer src="{% static 'myshop/js/alpine.min.js' %}"></script>
+      <script defer src="{% static 'myshop/js/dist/alpine.min.js' %}"></script>
+      <script defer src="{% static 'myshop/js/dist/htmx.min.js'  %}"></script>
+      <script defer src="{% static 'myshop/js/dist/axios.min.js' %}"></script>
+      <script defer src="{% static "myshop/js/request.js" %}"></script>
     {% block headjs %}{% endblock headjs %}
   </head>
   <body>

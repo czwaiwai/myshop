@@ -1,3 +1,5 @@
+import json
+
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
@@ -17,10 +19,10 @@ def index(request):
 
 @login_required(login_url=reverse_lazy("home:login"))
 @require_http_methods(["POST"])
-def add_cart(request):
+def add(request):
   form = AddCartForm(request.POST)
   if not form.is_valid():
-     return JsonResponse({"success": False, "msg":"表单未验证未通过", "errors": form.errors.as_json()})
+     return JsonResponse({"success": False, "msg":"表单未验证未通过", "errors": json.dumps(form.errors.as_json())})
   cart, created = Cart.objects.get_or_create(user=request.user)
   sku_id = form.cleaned_data.get("sku_id")
   quantity = form.cleaned_data.get("quantity")

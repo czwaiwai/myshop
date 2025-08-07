@@ -17,6 +17,12 @@
 .flex-item {
     flex:1;
 }
+.img_wrapper {
+    width:300px;
+}
+.img_wrapper img {
+    max-width:100%;
+}
 </style>
 {% endblock css %}
 {% block content %}
@@ -24,7 +30,7 @@
         <div>{{ product.name }}</div>
 {#        <div>{{ product.skus }}</div>#}
         <div>{{ product.price }}</div>
-        <div>
+        <div class="img_wrapper">
             {% for product_image in  product.images.all %}
              <img alt="{{ product_image.image }}" src="{{ product_image.image.url }}" />
             {% endfor %}
@@ -51,6 +57,9 @@
 {% endblock content %}
 {% block js %}
     <script>
+    document.addEventListener('alpine:init', () => {
+        console.log('init')
+    })
     function addCartForm() {
         return {
             formData: {
@@ -64,6 +73,9 @@
             addCart() {
                 console.log(this.formData)
                 console.log('提交数据')
+                $http.post('{% url 'cart:add' %}', {...this.formData}).then((res) => {
+                    console.log(res)
+                })
             }
         }
 
