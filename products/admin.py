@@ -16,6 +16,7 @@ from .models import (
 
 # Register your models here.
 
+
 @myadmin.ms_register(Category)
 class CategoryAdmin(MPTTModelAdmin):
     mptt_level_indent = 20
@@ -23,16 +24,22 @@ class CategoryAdmin(MPTTModelAdmin):
     list_filter = ("parent", "level")
     search_fields = ("name",)
 
+
 @myadmin.ms_register(Brand)
 class BrandAdmin(admin.ModelAdmin):
     list_display = ("name", "logo_preview", "first_letter")
     list_filter = ("name",)
     search_fields = ("name", "first_letter")
+
     def logo_preview(self, obj):
         if obj.logo is None:
             return "--"
-        return format_html('<img src="{}" alt="{}" width="80" height="80" />', obj.logo.url, obj.logo)
+        return format_html(
+            '<img src="{}" alt="{}" width="80" height="80" />', obj.logo.url, obj.logo
+        )
+
     logo_preview.short_description = "Logo"
+
 
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
@@ -43,6 +50,7 @@ class ProductDetailInline(admin.StackedInline):
     model = ProductDetail
     max_num = 1
     can_delete = False
+
 
 @myadmin.ms_register(Product)
 class ProductAdmin(admin.ModelAdmin):
@@ -55,6 +63,7 @@ class ProductAdmin(admin.ModelAdmin):
         "price_show",
         "update_at",
     )
+
     def price_show(self, obj):
         return format_html("<span>{}<span>/<del>{}<del>", obj.price, obj.origin_price)
 
@@ -79,6 +88,7 @@ class ProductAdmin(admin.ModelAdmin):
     )
     inlines = [ProductImageInline, ProductDetailInline]
 
+
 @myadmin.ms_register(ProductSKU)
 class ProductSKUAdmin(admin.ModelAdmin):
     list_display = ("sku_code", "product", "price", "stock", "is_active", "update_at")
@@ -99,17 +109,21 @@ class ProductSKUAdmin(admin.ModelAdmin):
                     "stock",
                     "is_active",
                 )
-            }
+            },
         ),
     )
+
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
         # form.base_fields["attributes"].widget =
-        form.base_fields["attributes"].queryset = None
+        # form.base_fields["attributes"].queryset = None
         return form
+
+
 class ProductAttributeValueInline(admin.TabularInline):
     model = ProductAttributeValue
     extra = 0
+
 
 # @admin.register(ProductAttribute)
 @myadmin.ms_register(ProductAttribute)
@@ -120,8 +134,9 @@ class ProductAttributeAdmin(admin.ModelAdmin):
     def attribute_value(self, obj):
         values = obj.values.all()
         if values:
-           return ",".join([item.value for item in values])
+            return ",".join([item.value for item in values])
         return " -- "
+
     attribute_value.short_description = "属性值"
     inlines = [ProductAttributeValueInline]
 
