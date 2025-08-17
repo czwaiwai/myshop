@@ -1,4 +1,5 @@
 {% load static %}
+{% load tailwind_tags %}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,6 +7,7 @@
       <title>
         {% block title %}My Site{% endblock %}
       </title>
+    {% tailwind_css %}
     <link rel="stylesheet" href="{%  static 'myshop/css/base.css' %}" />
     {% block css %}{% endblock css %}
       <script defer src="{% static 'myshop/js/dist/alpine.min.js' %}"></script>
@@ -13,7 +15,7 @@
       <script defer src="{% static 'myshop/js/dist/axios.min.js' %}"></script>
       <script defer src="{% static "myshop/js/request.js" %}"></script>
     {% block headjs %}{% endblock headjs %}
-  </head>
+   </head>
   <body>
   <header>
       {% block header %}
@@ -32,6 +34,56 @@
              {% include 'footer.html' %}
       {% endblock footer %}
   </footer>
+  <template x-data x-if="$store.loading.on">
+    <div class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+      <!-- daisyUI 的 loading 动画 -->
+      <span class="loading loading-spinner loading-lg text-white"></span>
+    </div>
+  </template>
+  <template x-data x-if="$store.toast.on">
+    <div class="toast toast-top toast-center">
+      <div class="alert alert-error">
+        <span x-text="$store.toast.msg"></span>
+      </div>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.store('toast', {
+            on: false,
+            msg: '',
+            show(msg) {
+                if(!msg) return
+                this.msg = msg
+                this.on = true
+                setTimeout(() => {
+                    this.on = false
+                }, 3 * 1000)
+            }
+        })
+        Alpine.store('loading', {
+            num: 0,
+            timer: 0,
+            on: false,
+            show() {
+                this.on = true
+                this.num ++
+            },
+            hide() {
+                this.num --
+                if(this.num <= 0) {
+                    this.on = false
+                }
+                clearTimeout(this.timer)
+                this.timer = setTimeout(() => {
+                    this.num = 0
+                    this.on = false
+                }, 30 * 1000)
+            }
+        })
+        console.log('init')
+    })
+  </script>
    {% block js %}{% endblock js %}
   </body>
 </html>

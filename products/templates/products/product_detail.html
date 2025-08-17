@@ -68,13 +68,13 @@
             },
             checkboxChange(sku_id) {
                 this.formData.sku_id = this.formData.sku_id === sku_id? '': sku_id
-                {#console.log(this.formData.sku_id)#}
             },
             addCart() {
                 console.log(this.formData)
                 console.log('提交数据')
                 $http.post('{% url 'cart:add' %}', {...this.formData}).then((res) => {
                     console.log(res)
+                    Alpine.store('toast').show('添加购物车成功')
                 })
             }
         }

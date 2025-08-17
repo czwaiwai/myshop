@@ -82,11 +82,31 @@ class ProductAdmin(admin.ModelAdmin):
 @myadmin.ms_register(ProductSKU)
 class ProductSKUAdmin(admin.ModelAdmin):
     list_display = ("sku_code", "product", "price", "stock", "is_active", "update_at")
-    search_fields = ("sku_code", "product__name")
+    search_fields = ("sku_code", "product")
     list_filter = ("product",)
+    ordering = ("-update_at",)
 
-
-
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "sku_name",
+                    "product",
+                    "attributes",
+                    "sku_code",
+                    "price",
+                    "stock",
+                    "is_active",
+                )
+            }
+        ),
+    )
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        # form.base_fields["attributes"].widget =
+        form.base_fields["attributes"].queryset = None
+        return form
 class ProductAttributeValueInline(admin.TabularInline):
     model = ProductAttributeValue
     extra = 0

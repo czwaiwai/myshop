@@ -22,3 +22,9 @@ default = true
 [[tool.uv.index]]
 name = "aliyun"
 url = "https://mirrors.aliyun.com/pypi/simple/"
+
+[dependency-groups]
+dev = [
+    "cookiecutter>=2.6.0",
+    "honcho>=2.0.0",
+]

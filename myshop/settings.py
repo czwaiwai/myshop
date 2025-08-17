@@ -30,7 +30,6 @@ ALLOWED_HOSTS = []
 AUTH_USER_MODEL = "users.User"
 
 # Application definition
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "myadmin",
@@ -41,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "widget_tweaks",  # 表单插件
     "tailwind",
+    "theme",
     "ninja",  # api框架
     "home",
     "products",
@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     "promotions",
     "mptt",
 ]
+# tailwind css 项目配置
+TAILWIND_APP_NAME = 'theme'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
