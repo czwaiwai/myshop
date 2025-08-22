@@ -1,59 +1,62 @@
 {% load static %}
 {% load tailwind_tags %}
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    {% block meta %}{% endblock meta %}
-      <title>
+<head>
+    <meta charset="UTF-8"/>
+    {% block meta %}
+    {% endblock meta %}
+    <title>
         {% block title %}My Site{% endblock %}
-      </title>
+    </title>
     {% tailwind_css %}
-    <link rel="stylesheet" href="{%  static 'myshop/css/base.css' %}" />
-    {% block css %}{% endblock css %}
-      <script defer src="{% static 'myshop/js/dist/alpine.min.js' %}"></script>
-      <script defer src="{% static 'myshop/js/dist/htmx.min.js'  %}"></script>
-      <script defer src="{% static 'myshop/js/dist/axios.min.js' %}"></script>
-      <script defer src="{% static "myshop/js/request.js" %}"></script>
-    {% block headjs %}{% endblock headjs %}
-   </head>
-  <body>
-  <header>
-      {% block header %}
-          {% include 'header.html' %}
-      {% endblock header %}
-  </header>
-  <main>
-      {%  block main %}
-          <div class="content">
+    <link rel="stylesheet" href="{% static 'myshop/css/base.css' %}"/>
+    {% block css %}
+    {% endblock css %}
+    <script defer src="{% static 'myshop/js/dist/alpine.min.js' %}"></script>
+    <script defer src="{% static 'myshop/js/dist/htmx.min.js' %}"></script>
+    <script defer src="{% static 'myshop/js/dist/axios.min.js' %}"></script>
+    <script defer src="{% static "myshop/js/request.js" %}"></script>
+    {% block headjs %}
+    {% endblock headjs %}
+</head>
+<body>
+<header>
+    {% block header %}
+        {% include 'header.html' %}
+    {% endblock header %}
+</header>
+<main>
+    {% block main %}
+        <div class="content">
             {% block content %}{% endblock %}
-          </div>
-      {% endblock main %}
-  </main>
-  <footer>
-      {% block footer %}
-             {% include 'footer.html' %}
-      {% endblock footer %}
-  </footer>
-  <template x-data x-if="$store.loading.on">
+        </div>
+    {% endblock main %}
+</main>
+<footer>
+    {% block footer %}
+        {% include 'footer.html' %}
+    {% endblock footer %}
+</footer>
+<template x-data x-if="$store.loading.on">
     <div class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
-      <!-- daisyUI 的 loading 动画 -->
-      <span class="loading loading-spinner loading-lg text-white"></span>
+        <!-- daisyUI 的 loading 动画 -->
+        <span class="loading loading-spinner loading-lg text-white"></span>
     </div>
-  </template>
-  <template x-data x-if="$store.toast.on">
+</template>
+<template x-data x-if="$store.toast.on">
     <div class="toast toast-top toast-center">
-      <div class="alert alert-error">
-        <span x-text="$store.toast.msg"></span>
-      </div>
+        <div class="alert alert-error">
+            <span x-text="$store.toast.msg"></span>
+        </div>
     </div>
-  </template>
-  <script>
+</template>
+<script>
     document.addEventListener('alpine:init', () => {
         Alpine.store('toast', {
             on: false,
             msg: '',
             show(msg) {
-                if(!msg) return
+                if (!msg) return
                 this.msg = msg
                 this.on = true
                 setTimeout(() => {
@@ -67,11 +70,11 @@
             on: false,
             show() {
                 this.on = true
-                this.num ++
+                this.num++
             },
             hide() {
-                this.num --
-                if(this.num <= 0) {
+                this.num--
+                if (this.num <= 0) {
                     this.on = false
                 }
                 clearTimeout(this.timer)
@@ -83,7 +86,8 @@
         })
         console.log('init')
     })
-  </script>
-   {% block js %}{% endblock js %}
-  </body>
+</script>
+{% block js %}
+{% endblock js %}
+</body>
 </html>

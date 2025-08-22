@@ -1,37 +1,37 @@
-{%  extends 'base.html' %}
+{% extends 'base.html' %}
 {% block content %}
-<div x-data="addCartForm" class="overflow-x-auto">
-    <form method="post" action="">
-        <table  class="table table-xs">
-            <tr>
-                <th>选择</th>
-                <th>图片</th>
-                <th>名称</th>
-                <th>详细</th>
-                <th>数量</th>
-                <th>价格</th>
-            </tr>
-            {% for item in cart.items.all %}
-             <tr>
-                 <td>
-                    <label>
-                     <input type="checkbox" class="checkbox" />
-                    </label>
-                 </td>
+    <div x-data="addCartForm" class="overflow-x-auto">
+        <form method="post" action="">
+            <table class="table table-xs">
+                <tr>
+                    <th>选择</th>
+                    <th>图片</th>
+                    <th>名称</th>
+                    <th>详细</th>
+                    <th>数量</th>
+                    <th>价格</th>
+                </tr>
+                {% for item in cart.items.all %}
+                    <tr>
+                        <td>
+                            <label>
+                                <input type="checkbox" class="checkbox"/>
+                            </label>
+                        </td>
 
-                 <td>{{ item.sku.product.images.all|first }}</td>
-                 <td>{{ item.sku.product.name }}</td>
-                 <td>{{ item.sku.sku_name }}</td>
-                 <td><input type="text" value="{{ item.quantity }}"></td>
-                 <td>{{ item.sku.price }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </form>
-<div>
-<div>
-    <button class="btn btn-primary">结算</button>
-</div>
+                        <td>{{ item.sku.product.images.all|first }}</td>
+                        <td>{{ item.sku.product.name }}</td>
+                        <td>{{ item.sku.sku_name }}</td>
+                        <td><input type="text" value="{{ item.quantity }}"></td>
+                        <td>{{ item.sku.price }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </form>
+    </div>
+    <div>
+        <button class="btn btn-primary">结算</button>
+    </div>
 {% endblock content %}
 {% block js %}
     <script>
