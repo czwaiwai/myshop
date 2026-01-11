@@ -1,5 +1,7 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+    themes: light --default, dark false;
+}
 
 /**
   * A catch-all path to Django template files, JavaScript, and Python files
@@ -9,3 +11,21 @@
   * the scope of this path.
   */
 @source "../../../**/*.{html,py,js}";
+
+@layer base {
+  html {
+    font-size: 16px;
+  }
+}
+@layer  components {
+    .sep {
+        @apply text-[#424242] mx-1;
+    }
+
+    .link-b0b0b0 {
+        @apply text-[#b0b0b0] hover:text-white;
+    }
+    .cart-mini {
+        @apply relative w-[120px] h-[40px] items-center flex justify-center bg-[#424242] text-[#b0b0b0];
+    }
+}

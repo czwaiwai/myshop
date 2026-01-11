@@ -11,10 +11,13 @@ mkdir demoproject
 python3.12 -m venv .venv
 ```
 
-### 激活虚拟环境
+### 激活与取消虚拟环境
 
 ```bash
-source venv/bin/activate
+# 激活
+source .venv/bin/activate
+# 取消
+deactivate 
 ```
 
 ### 使用 uv 创建虚拟环境

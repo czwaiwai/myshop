@@ -2,9 +2,9 @@ from django.contrib import admin
 
 
 class MsAdminSite(admin.AdminSite):
-    site_header = "管理后台"
-    site_title = "管理面板"
-    index_title = "欢迎使用管理系统"
+    site_header = "MYSHOP管理后台"
+    site_title = "MYSHOP管理面板"
+    index_title = "欢迎使用MYSHOP管理系统"
 
     # 注册装饰器
     def ms_register(self, model):

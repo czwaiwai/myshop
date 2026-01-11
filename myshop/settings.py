@@ -39,10 +39,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "widget_tweaks",  # 表单插件
-    "tailwind",
+    "tailwind", # 开发阶段使用
     "theme",
     "ninja",  # api框架
-    "home",
+    "home", # 网站主页
     "products",
     "users",
     "cart",

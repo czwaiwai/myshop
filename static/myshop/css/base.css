@@ -3,19 +3,10 @@ body,html {
     margin: 0;
     color:#333;
 }
-
 header nav {
 
 }
-header nav ul {
-    width: 100%;
-    display: flex;
-    margin: 0;
-    padding: 20px;
-    list-style: none;
-    border: 1px solid #999;
-}
-header nav ul li {
-    flex:1;
-    text-align:center;
+.site-container {
+    width: 1226px;
+    margin: 0 auto;
 }

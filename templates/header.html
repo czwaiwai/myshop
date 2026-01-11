@@ -1,29 +1,93 @@
-<nav>
-    <ul>
-        <li>
-            <a href="/">首页</a>
-        </li>
-        <li>
-            <a href="{% url "products:product_list" %}">商品列表</a>
-        </li>
-        <li>
-            <a href="{% url "cart:index" %}">购物车</a>
-        </li>
-        {% if user.is_authenticated %}
-            <li>
-               <a href="{% url "users:index" %}">{{ user.email }}</a>
-            </li>
-            <li>
-                <a href="{% url "home:logout" %}">退出</a>
-            </li>
-        {% else %}
-            <li>
-                <a href="{% url "home:login" %}">登录</a>
-            </li>
-            <li>
-                <a href="{% url "home:register" %}">注册</a>
-            </li>
-        {% endif %}
-
-    </ul>
-</nav>
+<div class="site-topbar  h-[40px] bg-[#333]  ">
+    <div class="site-container ">
+        <div class="flex justify-between items-center h-full">
+            <div class="flex items-center">
+                <div class="text-sm  text-[12px]">
+                    <a href="javascript:void(0)" class="link-b0b0b0 inline-flex leading-[40px]">小米官网</a>
+                    <span class="sep">|</span>
+                    <a href="javascript:void(0)" class="link-b0b0b0 inline-flex leading-[40px]">小米商城</a>
+                    <span class="sep">|</span>
+                    <a href="javascript:void(0)" class="link-b0b0b0 inline-flex leading-[40px]">小米澎湃OS</a>
+                    <span class="sep">|</span>
+                    <a href="javascript:void(0)" class="link-b0b0b0 inline-flex leading-[40px]">小米汽车</a>
+                    <span class="sep">|</span>
+                    <a href="javascript:void(0)" class="link-b0b0b0 inline-flex leading-[40px]">云服务</a>
+                </div>
+            </div>
+            <div class="flex items-center justify-end">
+                <div class="text-sm text-[12px]">
+                     {% if user.is_authenticated %}
+                         <a href="{% url "users:index" %}" class="link-b0b0b0 inline-flex leading-[40px]">{{ user.email }}</a>
+                         <span class="sep">|</span>
+                         <a href="{% url "home:logout" %}" class="link-b0b0b0 inline-flex leading-[40px]">退出</a>
+                         <span class="sep">|</span>
+                     {% else %}
+                         <a href="{% url "home:login" %}" class="link-b0b0b0 inline-flex leading-[40px]">登录</a>
+                         <span class="sep">|</span>
+                         <a href="{% url "home:register" %}" class="link-b0b0b0 inline-flex leading-[40px]">注册</a>
+                         <span class="sep">|</span>
+                     {% endif %}
+                    <a href="javascript:void(0)" class="link-b0b0b0 inline-flex leading-[40px]">消息通知</a>
+                   <div class="top-cart h-[40px] inline-flex items-center ml-[15px]">
+                       <a href="{% url "cart:index" %}" class="cart-mini">
+                           购物车 (0)
+                       </a>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="site-header h-[100px] ">
+    <div class="site-container flex justify-between items-center pt-[10px] h-full">
+        <div class="header-logo"></div>
+        <nav class="header-nav flex-auto">
+            <ul class="flex justify-start items-center h-full">
+                <li class="px4">
+                    <a href="/">全部商品分类</a>
+                </li>
+                <li>
+                    <a href="{% url "products:product_list" %}">Xiaomi手机</a>
+                </li>
+                <li>
+                    <a href="{% url "cart:index" %}">REDMI手机</a>
+                </li>
+                <li>
+                    <a href="{% url "cart:index" %}">电视</a>
+                </li>
+                <li>
+                    <a href="{% url "cart:index" %}">平板</a>
+                </li>
+                <li>
+                    <a href="{% url "cart:index" %}">家电</a>
+                </li>
+                <li>
+                    <a href="{% url "cart:index" %}">路由器</a>
+                </li>
+                <li>
+                    <a href="{% url "cart:index" %}">服务中心</a>
+                </li>
+                <li>
+                    <a href="{% url "cart:index" %}">社区</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="header-search">
+            <label class="input">
+              <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  stroke-width="2.5"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.3-4.3"></path>
+                </g>
+              </svg>
+              <input type="search" required placeholder="Search" />
+            </label>
+        </div>
+    </div>
+</div>
