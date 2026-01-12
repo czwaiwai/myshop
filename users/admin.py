@@ -6,10 +6,12 @@ from django.utils.html import format_html
 from myadmin.admin import myadmin
 from .models import User, ClientUser, ManagerUser, Address
 
+
 # Register your models here.
 @myadmin.ms_register(Address)
 class AddressAdmin(admin.ModelAdmin):
-    list_display = ("title", "contact_name","email", "address_show")
+    list_display = ("title", "contact_name", "email", "address_show")
+
     fieldsets = (
         (
             None,
@@ -29,6 +31,7 @@ class AddressAdmin(admin.ModelAdmin):
             },
         ),
     )
+
     # 两种方式 更新让用户界面只读的字段
     def get_readonly_fields(self, request, obj=None):
         readonly = super().get_readonly_fields(request, obj)
@@ -37,19 +40,20 @@ class AddressAdmin(admin.ModelAdmin):
 
         return readonly
 
+    # 用户地址
     def address_show(self, obj):
         return f"{obj.province}{obj.city}{obj.district}{obj.place}"
+
     address_show.short_description = "地址"
 
     def changelist_view(self, request, extra_context=None):
-        user_id = request.GET.get('user__id__exact')
+        user_id = request.GET.get("user__id__exact")
         extra_context = extra_context or {}
         if user_id:
             try:
                 user_obj = User.objects.get(id=user_id)
                 extra_context["title"] = format_html(
-                     '当前正在查看 <strong>{}</strong> 的地址列表',
-                    user_obj.username
+                    "当前正在查看 <strong>{}</strong> 的地址列表", user_obj.username
                 )
             except User.DoesNotExist:
                 pass
@@ -58,7 +62,7 @@ class AddressAdmin(admin.ModelAdmin):
     #  用于给表单追加参数
     def get_changeform_initial_data(self, request):
         initial = super().get_changeform_initial_data(request)
-        user_id = request.GET.get('user__id__exact')
+        user_id = request.GET.get("user__id__exact")
         if user_id:
             initial["user"] = user_id
         else:
@@ -82,12 +86,24 @@ class AddressAdmin(admin.ModelAdmin):
     #         # form.base_fields['user'].widget.attrs['disabled'] = True
     #     return form
 
+
 class ClientUserAdmin(UserAdmin):
     list_display = ("email", "nickname", "score", "is_active", "action_buttons")
+    list_display_links = ("email",)
+
     def action_buttons(self, obj):
-        url  = reverse("admin:users_address_changelist") + f"?user__id__exact={obj.id}"
-        return format_html('<a href="{}">{}</a>', url, "查看地址")
-    action_buttons.short_description = '操作'
+        url = reverse("admin:users_address_changelist") + f"?user__id__exact={obj.id}"
+
+        return format_html(
+            '<a href="{address_url}">{address_text}</a> &nbsp; '
+            '<a href="{cart_url}">{cart_text}</a>',
+            address_url=url,
+            address_text="查看地址",
+            cart_url=url,
+            cart_text="购物车",
+        )
+
+    action_buttons.short_description = "操作"
 
     search_fields = ("email", "nickname")
     list_filter = ("score",)
@@ -125,7 +141,6 @@ class ClientUserAdmin(UserAdmin):
         ),
     )
 
-
     def get_readonly_fields(self, request, obj=None):
         readonly = super().get_readonly_fields(request, obj)
         if obj:
@@ -139,6 +154,7 @@ class ClientUserAdmin(UserAdmin):
 
 class ManagerUserAdmin(UserAdmin):
     # list_display = ("email", "nickname")
+    list_display_links = ("email",)
     search_fields = ("email", "nickname")
     add_fieldsets = (
         (
@@ -156,6 +172,7 @@ class ManagerUserAdmin(UserAdmin):
             },
         ),
     )
+
     def get_queryset(self, request):
         return super().get_queryset(request).filter(user_type="manager")
 

@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>商品</h1>
-<ul>
-  {% for product in products %}
-      <li><a href="{% url 'products:product_detail' product.pk %}" >{{ product.name }} - ${{ product.price }}</a></li>
-  {% endfor %}
-</ul>
-<div class="pagination">
+    <h1>商品</h1>
+    <ul>
+        {% for product in products %}
+            <li><a href="{% url 'products:product_detail' product.pk %}">{{ product.name }} - ${{ product.price }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
             <a href="?page=1">&laquo; 首页</a>
@@ -22,5 +23,75 @@
             <a href="?page={{ page_obj.paginator.num_pages }}">最后一页 &raquo;</a>
         {% endif %}
     </span>
-</div>
+    </div>
+    <div class="flex items-center justify-between w-full h-16 px-3 border-t border-neutral-200">
+        <p class="pl-2 text-sm text-gray-700">Showing <span class="font-medium">1</span> to <span
+                class="font-medium">10</span> of <span class="font-medium">89</span> results</p>
+        <nav>
+            <ul class="flex items-center text-sm leading-tight bg-white border divide-x rounded h-9 text-neutral-500 divide-neutral-200 border-neutral-200">
+
+                {% if page_obj.has_previous %}
+                    {#            <a href="?page=1">&laquo; 首页</a>#}
+                    {#            <a href="?page={{ page_obj.previous_page_number }}">上一页</a>#}
+                    <li class="h-full">
+                        <a href="?page={{ page_obj.previous_page_number }}"
+                           class="relative inline-flex items-center h-full px-3 ml-0 rounded-l group hover:text-neutral-900">
+                            <span>上一页</span>
+                        </a>
+                    </li>
+                {% endif %}
+                <li class="hidden h-full md:block">
+                    <a href="#" class="relative inline-flex items-center h-full px-3 text-neutral-900 group bg-gray-50">
+                        <span>1</span>
+                        <span class="box-content absolute bottom-0 left-0 w-full h-px -mx-px translate-y-px border-l border-r bg-neutral-900 border-neutral-900"></span>
+                    </a>
+                </li>
+                <li class="hidden h-full md:block">
+                    <a href="#" class="relative inline-flex items-center h-full px-3 group hover:text-neutral-900">
+                        <span>2</span>
+                        <span class="box-content absolute bottom-0 w-0 h-px -mx-px duration-200 ease-out translate-y-px border-transparent bg-neutral-900 group-hover:border-l group-hover:border-r group-hover:border-neutral-900 left-1/2 group-hover:left-0 group-hover:w-full"></span>
+                    </a>
+                </li>
+                <li class="hidden h-full md:block">
+                    <a href="#" class="relative inline-flex items-center h-full px-3 group hover:text-neutral-900">
+                        <span>3</span>
+                        <span class="box-content absolute bottom-0 w-0 h-px -mx-px duration-200 ease-out translate-y-px border-transparent bg-neutral-900 group-hover:border-l group-hover:border-r group-hover:border-neutral-900 left-1/2 group-hover:left-0 group-hover:w-full"></span>
+                    </a>
+                </li>
+                <li class="hidden h-full md:block">
+                    <div class="relative inline-flex items-center h-full px-2.5 group">
+                        <span>...</span>
+                    </div>
+                </li>
+                <li class="hidden h-full md:block">
+                    <a href="#" class="relative inline-flex items-center h-full px-3 group hover:text-neutral-900">
+                        <span>6</span>
+                        <span class="box-content absolute bottom-0 w-0 h-px -mx-px duration-200 ease-out translate-y-px border-transparent bg-neutral-900 group-hover:border-l group-hover:border-r group-hover:border-neutral-900 left-1/2 group-hover:left-0 group-hover:w-full"></span>
+                    </a>
+                </li>
+                <li class="hidden h-full md:block">
+                    <a href="#" class="relative inline-flex items-center h-full px-3 group hover:text-neutral-900">
+                        <span>7</span>
+                        <span class="box-content absolute bottom-0 w-0 h-px -mx-px duration-200 ease-out translate-y-px border-transparent bg-neutral-900 group-hover:border-l group-hover:border-r group-hover:border-neutral-900 left-1/2 group-hover:left-0 group-hover:w-full"></span>
+                    </a>
+                </li>
+                <li class="hidden h-full md:block">
+                    <a href="#" class="relative inline-flex items-center h-full px-3 group hover:text-neutral-900">
+                        <span>8</span>
+                        <span class="box-content absolute bottom-0 w-0 h-px -mx-px duration-200 ease-out translate-y-px border-transparent bg-neutral-900 group-hover:border-l group-hover:border-r group-hover:border-neutral-900 left-1/2 group-hover:left-0 group-hover:w-full"></span>
+                    </a>
+                </li>
+
+
+                {% if page_obj.has_next %}
+                    <li class="h-full">
+                        <a href="?page={{ page_obj.next_page_number }}"
+                           class="relative inline-flex items-center h-full px-3 rounded-r group hover:text-neutral-900">
+                            <span>下一页</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
 {% endblock %}
