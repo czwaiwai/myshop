@@ -19,24 +19,26 @@
     {% block headjs %}
     {% endblock headjs %}
 </head>
-<body>
-<header>
-    {% block header %}
-        {% include 'header.html' %}
-    {% endblock header %}
-</header>
-<main class="bg-[#f5f5f5]">
-    {% block main %}
-        <div class="content">
-            {% block content %}{% endblock %}
-        </div>
-    {% endblock main %}
-</main>
-<footer>
-    {% block footer %}
-        {% include 'footer.html' %}
-    {% endblock footer %}
-</footer>
+<body >
+<div class="layout">
+    <header class="site-header">
+        {% block header %}
+            {% include 'header.html' %}
+        {% endblock header %}
+    </header>
+    <main class="site-main bg-[#f5f5f5]">
+        {% block main %}
+            <div class="content">
+                {% block content %}{% endblock %}
+            </div>
+        {% endblock main %}
+    </main>
+    <footer class="site-footer">
+        {% block footer %}
+            {% include 'footer.html' %}
+        {% endblock footer %}
+    </footer>
+</div>
 <template x-data x-if="$store.loading.on">
     <div class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
         <!-- daisyUI 的 loading 动画 -->

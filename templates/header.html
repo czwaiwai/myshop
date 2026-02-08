@@ -39,15 +39,17 @@
     </div>
 </div>
 <div class="site-header h-[100px] ">
-    <div class="site-container flex justify-between items-center pt-[10px] h-full">
-        <div class="header-logo"></div>
+    <div class="site-container flex justify-end items-center pt-[10px] h-full">
+        <div class="header-logo">
+            小米商城
+        </div>
         <nav class="header-nav flex-auto">
             <ul class="flex justify-start items-center h-full">
                 <li class="px4">
                     <a href="/">全部商品分类</a>
                 </li>
                 <li>
-                    <a href="{% url "products:product_list" %}">Xiaomi手机</a>
+                    <a class="nav-link" href="{% url "products:product_list" %}">Xiaomi手机</a>
                 </li>
                 <li>
                     <a href="{% url "cart:index" %}">REDMI手机</a>
@@ -70,6 +72,7 @@
                 <li>
                     <a href="{% url "cart:index" %}">社区</a>
                 </li>
+
             </ul>
         </nav>
         <div class="header-search">

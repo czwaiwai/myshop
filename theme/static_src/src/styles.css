@@ -18,6 +18,34 @@
   }
 }
 @layer  components {
+    .layout {
+        display:grid;
+        min-height: 100vh;
+        grid-template-rows: auto 1fr auto;
+        grid-template-areas:
+                "header header"
+                "main main"
+                "footer footer";
+    }
+    .site-header {
+        grid-area: header;
+    }
+    .site-main {
+        grid-area: main;
+    }
+    .site-footer {
+        grid-area: footer;
+    }
+    .header-logo {
+        background: url(../../images/logo.png) no-repeat center;
+        background-size: contain;
+        width: 55px;
+        height: 55px;
+    }
+    .site-container {
+        width: 1226px;
+        margin: 0 auto;
+    }
     .sep {
         @apply text-[#424242] mx-1;
     }
@@ -25,6 +53,7 @@
     .link-b0b0b0 {
         @apply text-[#b0b0b0] hover:text-white;
     }
+
     .cart-mini {
         @apply relative w-[120px] h-[40px] items-center flex justify-center bg-[#424242] text-[#b0b0b0];
     }
